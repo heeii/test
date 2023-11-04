@@ -14,14 +14,14 @@ with open('config.json', 'r') as config_file:
 # Настройки CORS для разрешения запросов из любых источников (для тестовых целей)
 app.add_middleware(
     CORSMiddleware,
-    # allow_origins=[config['allow_origins']],
-    # allow_credentials=config['allow_credentials'],
-    # allow_methods=[config['allow_methods']],
-    # allow_headers=[config['allow_headers']],
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=[config['allow_origins']],
+    allow_credentials=config['allow_credentials'],
+    allow_methods=[config['allow_methods']],
+    allow_headers=[config['allow_headers']],
+    #allow_origins=["*"],
+    #allow_credentials=True,
+   # allow_methods=["*"],
+    #allow_headers=["*"],
 )
 
 # Маршрут для получения предсказаний
@@ -61,7 +61,7 @@ async def predict(file: UploadFile):
                     razmx2 = cx
                     razmy2 = cy
             mpDrow.draw_landmarks(img, result.multi_hand_landmarks[0], mp.solutions.hands.HAND_CONNECTIONS,)
-            razm_o = (((razmx1 - razmx2) ** 2 + (razmy1 - razmy2) ** 2) ** 0.5) * 1.1
+            razm_o = (((razmx1 - razmx2) ** 2 + (razmy1 - razmy2) ** 2) ** 0.5) * config['mn']
             leng = ((upx - bpx) ** 2 + (upy - bpy) ** 2) ** 0.5
             if leng < razm_o:
                 znach='"Все ОК"'
