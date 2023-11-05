@@ -84,11 +84,11 @@ async def predict(file: UploadFile):
         # cv2.imshow(image_with_prediction)
         # Вернуть изображение с разметкой как вложенный файл в ответе
         return FileResponse(str(output_path), headers={"Content-Disposition": f"attachment; filename={file.filename}"})
-        os.remove('i.jpg')
+
     except Exception as e:
         return {"error": str(e)}
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host='0.0.0.0', port=config['api_port'])
-    os.remove('i.jpg')
+    uvicorn.run(app, host=config['host'], port=config['api_port'])
+
