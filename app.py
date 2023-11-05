@@ -90,5 +90,5 @@ async def predict(file: UploadFile):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host=config[8000], port=config['api_port'])
+    uvicorn.run(app, host=config['host'], port=config['api_port'])
     os.remove('i.jpg')
