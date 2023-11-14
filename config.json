@@ -1,7 +1,7 @@
 {
   "api_port": 8000,
-  "host": "localhost",
-  "app_address": "http://localhost:8000/api/v1/predict",
+  "host": "0.0.0.0",
+  "app_address": "http://0.0.0.0:8000/api/v1/predict",
 
     "allow_origins":"*",
     "allow_credentials":"True",
