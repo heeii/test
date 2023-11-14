@@ -1,15 +1,18 @@
-# Используйте базовый образ Python
 FROM python:3.10
+RUN pip install --upgrade pip
 
-# Установите необходимые зависимости
-RUN pip install fastapi uvicorn opencv-python-headless mediapipe
 
-# Копируйте ваш исходный код в контейнер
-COPY . .
+RUN apt-get update && apt-get install -y libgl1-mesa-glx
+RUN pip install fastapi
+RUN pip install uvicorn
+RUN pip install opencv-python-headless
+RUN pip install mediapipe
+RUN pip install python-multipart
+
+
 WORKDIR /app
+COPY . .
 
-# Определите порт, на котором ваше приложение будет работать
 EXPOSE 8000
 
-# Запустите ваше приложение при запуске контейнера
-CMD ["uvicorn", "main:app"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
