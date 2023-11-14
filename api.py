@@ -6,10 +6,8 @@ import json
 
 
 def main():
-
     with open('config.json', 'r') as config_file:
         config = json.load(config_file)
-
     parser = argparse.ArgumentParser(
         description="Получить предсказания для изображения"
     )
@@ -30,7 +28,7 @@ def main():
             files = {"file": ("i.jpg", image_file)}
             response = requests.post(config['app_address'], files=files)
 
-            if response.status_code == 200: # если от сервера приходит ответ 200 (всё в поррядке) то начинается обработка фото
+            if response.status_code == 200:
 
                 image_with_prediction = BytesIO(response.content)
 
