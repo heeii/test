@@ -3,12 +3,21 @@ import argparse
 from io import BytesIO
 import cv2
 import json
+
+
 def main():
+
     with open('config.json', 'r') as config_file:
         config = json.load(config_file)
-    parser = argparse.ArgumentParser(description="Получить предсказания для изображения")
-    parser.add_argument("--input", help="Путь к входному изображению")
-    parser.add_argument("--output", help="Путь для сохранения изображения с предсказанием")
+
+    parser = argparse.ArgumentParser(
+        description="Получить предсказания для изображения"
+    )
+    parser.add_argument(
+        "--input", help="Путь к входному изображению"
+    )
+    parser.add_argument("--output",
+                        help="Путь для сохранения изображения с предсказанием")
 
     args = parser.parse_args()
 
@@ -21,11 +30,10 @@ def main():
             files = {"file": ("i.jpg", image_file)}
             response = requests.post(config['app_address'], files=files)
 
-            if response.status_code == 200:
-                # Прочитайте изображение с предсказанием
+            if response.status_code == 200: # если от сервера приходит ответ 200 (всё в поррядке) то начинается обработка фото
+
                 image_with_prediction = BytesIO(response.content)
 
-                # Сохраните изображение с предсказанием
                 with open(output_image_path, "wb") as output_image:
                     output_image.write(image_with_prediction.read())
                 # cv2.imshow(output_image)
@@ -34,6 +42,7 @@ def main():
                 print(f"Ошибка при получении предсказания: {response.text}")
     else:
         print("Укажите пути к входному и выходному изображениям")
+
 
 if __name__ == "__main__":
     main()
